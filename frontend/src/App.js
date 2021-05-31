@@ -1,6 +1,6 @@
 // import axios from './axios';
 import './App.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Home from './components/Home';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
@@ -11,12 +11,6 @@ export const UserContext = React.createContext([]);
 
 function App() {
   const [user, setUser] = useState({});
-  useEffect(()=>{
-    const tokendata = localStorage.getItem("usertoken");
-    if(tokendata!=="{}"&&tokendata!==null){
-      setUser(JSON.parse(tokendata));
-    }
-  });
 
   const LogoutCallback = () => {
     setUser({});

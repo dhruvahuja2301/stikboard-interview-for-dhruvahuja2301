@@ -14,7 +14,6 @@ router.route("/").post(async (req,res)=>{
     if(!name || !email || !password){
         res.status(400).json({message: 'Please enter all fields'})
     }
-
     try {
         const userfind = await User.findOne({ email })
         // existing user?
@@ -23,16 +22,14 @@ router.route("/").post(async (req,res)=>{
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(password, salt);
             const newUser = User({name, email, password: hash});
-            // console.log(newUser);
             // save user
             const user = await newUser.save();
             // create jwt token
-            const token = await jwt.sign(
+            const token = jwt.sign(
                 {id: user.id},
                 process.env.JWT_SECRET,
                 {expiresIn: 3600}  
             );
-            // console.log(token)
             res.json({
                 token,
                 user: {

@@ -27,7 +27,7 @@ router.route("/").post(async (req,res)=>{
                 res.status(400).json({message: 'Password is incorrect'});
             }
             else {
-                const token = await jwt.sign(
+                const token = jwt.sign(
                     {id: user.id},
                     process.env.JWT_SECRET,
                     {expiresIn: 3600}  
